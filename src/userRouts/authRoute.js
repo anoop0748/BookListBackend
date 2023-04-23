@@ -18,7 +18,7 @@ userRoute.post('/login/user/postBooks',async(req,res)=>{
         })
         
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             massage:"Bookes are not posted on database"
         })
         
@@ -35,7 +35,7 @@ userRoute.get('/login/user/getBooks',async(req,res)=>{
         })
         
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             massage:"Sorry unable to get books."
         })
         

@@ -69,7 +69,7 @@ regRoutes.post('/login/user',async(req,res)=>{
 
         
     } catch (e) {
-        res.status(401).json({
+       return res.status(401).json({
 
             massage:e.massage
         })
