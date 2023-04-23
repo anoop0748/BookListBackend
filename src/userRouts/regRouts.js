@@ -43,12 +43,18 @@ regRoutes.post('/login/user',async(req,res)=>{
                 massage:'Password length between 6 to 16 and email also should be valid.'
             })
         }
-        console.log(email,password)
+        
         let user = await userData.find({userName:email});
+
         console.log(user)
         if(!user){
             return res.status(300).json({
                 massage:"Sorry! You are not register on our database."
+            })
+        }
+        if(user[0].password !== password){
+            return res.status(301).json({
+                massage:"wrong Password"
             })
         }
         let token = await jwt.sign({
