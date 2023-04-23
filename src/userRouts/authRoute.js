@@ -6,13 +6,14 @@ let BooksData = require('../DataModels/userBooksModel');
 let userRoute = express();
 userRoute.post('/login/user/postBooks',async(req,res)=>{
     try {
+        console.log(req.body)
         let bookDetails = {
             user:req.user,
-            date:Date.now(),
             ...req.body
         };
-        console.log(bookDetails,"sdfkjh",req.body)
+        
         let db = await BooksData.create(bookDetails);
+        console.log(db)
         return res.status(200).json({
             massage:"Given books are stored in Database."
         })
@@ -43,7 +44,8 @@ userRoute.get('/login/user/getBooks',async(req,res)=>{
 });
 userRoute.put('/login/user/putBooks',async(req,res)=>{
     try {
-        let id = req.body.id;
+        console.log("put",req.body)
+        let id = req.body._id;
         let upDb = await BooksData.updateOne({_id:id},req.body);
         return res.status(200).json({
             massage:'successfully updated your data'
@@ -59,7 +61,7 @@ userRoute.put('/login/user/putBooks',async(req,res)=>{
 });
 userRoute.delete('/login/user/deleteBooks',async(req,res)=>{
     try {
-        let id = req.body.id;
+        let id = req.headers.id;
         
         let upDb = await BooksData.deleteOne({_id:id});
         return res.status(200).json({

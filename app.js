@@ -24,16 +24,20 @@ mongoose.connect(DBuri,(error,db)=>{
 
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.json());
 app.use((req, res, next) => {
-    // res.setHeader("Access-Control-Allow-Origin", "*");
+    
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization",
     );
+    
     next();
   });
 app.use('/login/user/*',async(req,res,next)=>{
-    
     let token = req.headers.authorization;
     await jwt.verify(token,"BookApp",(error,decoded)=>{
         if(error){
@@ -47,15 +51,13 @@ app.use('/login/user/*',async(req,res,next)=>{
     next();
 
 })
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
+
 app.use(regRoute);
 app.use(userBooks)
 
 
 app.use('*',(req,res)=>{
-    res.status(500).json({
+    return res.status(500).json({
         massage:"page not found"
     })
 })
