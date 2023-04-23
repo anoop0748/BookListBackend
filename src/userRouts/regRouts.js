@@ -52,7 +52,7 @@ regRoutes.post('/login/user',async(req,res)=>{
             })
         }
         let token = await jwt.sign({
-            exp:Math.floor(Date.now()/1000 * 60),
+            exp:Math.floor(Date.now()/ 1000)+(60 * 60),
             data:user[0]._id
         },"BookApp");
         console.log(token)
