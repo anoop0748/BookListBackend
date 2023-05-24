@@ -9,7 +9,9 @@ const bookSchema = new schema({
     author:{type:String, require:true},
     description:{type:String, require:true},
     date:{type:Date, require:true},
-    publisherOfBook:{type:String, require:true}
+    publisherOfBook:{type:String, require:true},
+    bookImg:{type:String},
+    genres:{type:String}
 });
 
 const BooksModel = mongoose.model('UserBooks',bookSchema);

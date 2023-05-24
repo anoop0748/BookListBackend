@@ -6,8 +6,8 @@ const DBuri = process.env.DBuri || 'mongodb://localhost:27017';
 const cors = require('cors');
 const jwt  = require('jsonwebtoken');
 const regRoute = require('./src/userRouts/regRouts');
-const userBooks = require('./src/userRouts/authRoute')
-
+const userBooks = require('./src/userRouts/authRoute');
+const fileUpload = require("express-fileupload");
 
 
 
@@ -27,16 +27,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-    );
+        "Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"
+      );
     
     next();
   });
+app.use(fileUpload({ useTempFiles: true }));
+app.use("/public", express.static("public"));
 app.use('/login/user/*',async(req,res,next)=>{
     let token = req.headers.authorization;
     await jwt.verify(token,"BookApp",(error,decoded)=>{
