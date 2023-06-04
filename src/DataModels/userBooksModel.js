@@ -11,7 +11,8 @@ const bookSchema = new schema({
     date:{type:Date, require:true},
     publisherOfBook:{type:String, require:true},
     bookImg:{type:String},
-    genres:{type:String}
+    genres:{type:String},
+    content:{type:String}
 });
 
 const BooksModel = mongoose.model('UserBooks',bookSchema);
